@@ -19,38 +19,42 @@ namespace ActorRest2.Controllers
 
         // GET: api/<ActorsController>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
-        public ActionResult<IEnumerable<Actor>> Get([FromHeader] string? amount)
+        public IEnumerable<Actor> Get()
         {
-            IEnumerable<Actor> actorList =
-                _actorsRepository.GetActors();
-            if (amount != null)
-            {
-                if (int.TryParse(amount, out int count))
-                {
-                    actorList = actorList.Take(count);
-                }
-                else
-                {
-                    return BadRequest("Amount must be a number");
-                }
-            }
-            else
-            {
-                return BadRequest("Amount must be filled out");
-            }
-            if (actorList.Any())
-            {
-                Response.Headers.Add("TotalCount", "" + actorList.Count());
-                return Ok(actorList);
-            }
-            else
-            {
-                return NoContent();
-            }
+            return _actorsRepository.GetActors();
         }
+        //public ActionResult<IEnumerable<Actor>> Get([FromHeader] string? amount)
+        //{
+        //    IEnumerable<Actor> actorList =
+        //        _actorsRepository.GetActors();
+        //    if (amount != null)
+        //    {
+        //        if (int.TryParse(amount, out int count))
+        //        {
+        //            actorList = actorList.Take(count);
+        //        }test
+        //        else
+        //        {
+        //            return BadRequest("Amount must be a number");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return BadRequest("Amount must be filled out");
+        //    }
+        //    if (actorList.Any())
+        //    {
+        //        Response.Headers.Add("TotalCount", "" + actorList.Count());
+        //        return Ok(actorList);
+        //    }
+        //    else
+        //    {
+        //        return NoContent();
+        //    }
+        //}
 
 
         // GET api/<ActorsController>/5
